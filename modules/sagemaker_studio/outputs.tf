@@ -13,3 +13,7 @@ output "sm_domain_url" {
 output "sm_domain_users" {
   value = aws_sagemaker_user_profile.domain_user[*].id
 }
+
+output "sm_s3_bucket" {
+  value = aws_s3_bucket.sm_bucket.bucket
+}

@@ -32,15 +32,23 @@ data "aws_iam_policy_document" "sm_user_policy" {
     effect = "Allow"
     resources = [
       "arn:aws:s3:::sm-bucket-*",
-      "arn:aws:s3:::sm-bucket-*/*",
-      "arn:aws:s3:::martinig*",
-      "arn:aws:s3:::martinig*/*",
+      "arn:aws:s3:::sm-bucket-*/*"
     ]
   }
 
   statement {
     actions = [
-      "glue:*"
+      "sagemaker:CreateApp",
+      "sagemaker:DescribeApp"
+    ]
+    resources = [
+      "*"
+    ]
+  }
+
+  statement {
+    actions = [
+      "elasticmapreduce:*"
     ]
     effect = "Allow"
     resources = [

@@ -18,5 +18,5 @@ variable "user_names" {
 
 variable "sample_repository" {
   type    = string
-  default = "https://github.com/gabrielmartinigit/aws-automl-pipeline"
+  default = "https://github.com/gabrielmartinigit/pyspark-samples"
 }
