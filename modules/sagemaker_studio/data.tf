@@ -1,5 +1,7 @@
 data "aws_caller_identity" "current" {}
 
+data "aws_region" "current" {}
+
 data "aws_iam_policy_document" "sm_policy" {
   statement {
     actions = ["sts:AssumeRole"]
@@ -39,7 +41,8 @@ data "aws_iam_policy_document" "sm_user_policy" {
   statement {
     actions = [
       "sagemaker:CreateApp",
-      "sagemaker:DescribeApp"
+      "sagemaker:DescribeApp",
+      "sagemaker:DescribeImageVersion"
     ]
     resources = [
       "*"

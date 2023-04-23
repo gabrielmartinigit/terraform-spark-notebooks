@@ -68,6 +68,7 @@ resource "aws_iam_role" "sm_user_role" {
   ]
 }
 
+# Start Sagemaker Studio Jupyter
 resource "aws_sagemaker_app" "jupyter" {
   domain_id         = aws_sagemaker_domain.sm_domain.id
   count             = length(var.user_names)
@@ -76,5 +77,19 @@ resource "aws_sagemaker_app" "jupyter" {
   app_type          = "JupyterServer"
   resource_spec {
     lifecycle_config_arn = aws_sagemaker_studio_lifecycle_config.clone_sample.arn
+    instance_type        = "system"
+  }
+}
+
+# Start Kernel to run notebooks
+resource "aws_sagemaker_app" "notebook_kernel" {
+  domain_id         = aws_sagemaker_domain.sm_domain.id
+  count             = length(var.user_names)
+  user_profile_name = aws_sagemaker_user_profile.domain_user[count.index].user_profile_name
+  app_name          = "kernel-notebook-spark"
+  app_type          = "KernelGateway"
+  resource_spec {
+    instance_type       = "ml.t3.medium"
+    sagemaker_image_arn = "arn:aws:sagemaker:${data.aws_region.current.name}:081325390199:image/sagemaker-sparkanalytics-310-v1"
   }
 }
