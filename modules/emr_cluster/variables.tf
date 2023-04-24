@@ -32,8 +32,8 @@ variable "core_instance_count" {
   default = 1
 }
 
-variable "subnet_ids" {
-  type = list(string)
+variable "subnet_id" {
+  type = string
 }
 
 variable "security_group_ids" {
