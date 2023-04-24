@@ -51,6 +51,38 @@ data "aws_iam_policy_document" "sm_user_policy" {
 
   statement {
     actions = [
+      "glue:GetDatabase",
+      "glue:GetDatabases",
+      "glue:GetTables",
+      "glue:GetTable",
+      "glue:GetPartitions",
+      "glue:GetPartition",
+      "glue:SearchTables",
+      "glue:GetUserDefinedFunctions",
+      "lakeformation:GetResourceLFTags",
+      "lakeformation:ListLFTags",
+      "lakeformation:GetLFTag",
+      "lakeformation:SearchTablesByLFTags",
+      "lakeformation:SearchDatabasesByLFTags",
+      "lakeformation:GetDataAccess",
+      "lakeformation:StartTransaction",
+      "lakeformation:CommitTransaction",
+      "lakeformation:CancelTransaction",
+      "lakeformation:ExtendTransaction",
+      "lakeformation:DescribeTransaction",
+      "lakeformation:ListTransactions",
+      "lakeformation:GetTableObjects",
+      "lakeformation:UpdateTableObjects",
+      "lakeformation:DeleteObjectsOnCancel"
+    ]
+    effect = "Allow"
+    resources = [
+      "*"
+    ]
+  }
+
+  statement {
+    actions = [
       "elasticmapreduce:*"
     ]
     effect = "Allow"
