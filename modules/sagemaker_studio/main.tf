@@ -8,16 +8,18 @@ resource "aws_sagemaker_studio_lifecycle_config" "clone_sample" {
 resource "aws_sagemaker_domain" "sm_domain" {
   domain_name = var.domain_name
   #auth_mode   = "IAM"
-  auth_mode  = "SSO"
-  vpc_id     = var.vpc_id
-  subnet_ids = var.subnet_ids
-
+  auth_mode               = "SSO"
+  vpc_id                  = var.vpc_id
+  subnet_ids              = var.subnet_ids
+  app_network_access_type = "VpcOnly"
+  domain_settings {
+    security_group_ids = var.security_group_ids
+  }
   default_user_settings {
-    execution_role = aws_iam_role.sm_domain_role.arn
-
+    execution_role  = aws_iam_role.sm_domain_role.arn
+    security_groups = var.security_group_ids
     jupyter_server_app_settings {
       lifecycle_config_arns = [aws_sagemaker_studio_lifecycle_config.clone_sample.arn]
-
       code_repository {
         repository_url = var.sample_repository
       }
