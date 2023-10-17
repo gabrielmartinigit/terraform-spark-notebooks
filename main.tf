@@ -59,10 +59,10 @@ module "sagemaker_studio" {
   sample_repository  = "https://github.com/gabrielmartinigit/pyspark-samples"
 }
 
-module "emr_cluster" {
-  source               = "./modules/emr_cluster"
-  cluster_name         = "cluster-test"
-  cluster_applications = ["Spark", "Livy"]
-  subnet_id            = module.spark_vpc.private_subnets[0]
-  security_group_ids   = aws_security_group.spark_sg.id
-}
+# module "emr_cluster" {
+#   source               = "./modules/emr_cluster"
+#   cluster_name         = "cluster-test"
+#   cluster_applications = ["Spark", "Livy"]
+#   subnet_id            = module.spark_vpc.private_subnets[0]
+#   security_group_ids   = aws_security_group.spark_sg.id
+# }

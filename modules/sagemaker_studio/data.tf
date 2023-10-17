@@ -40,13 +40,31 @@ data "aws_iam_policy_document" "sm_user_policy" {
 
   statement {
     actions = [
-      "sagemaker:CreateApp",
       "sagemaker:DescribeApp",
       "sagemaker:DescribeImageVersion"
     ]
+    effect = "Allow"
     resources = [
       "*"
     ]
+  }
+
+  statement {
+    actions = [
+      "sagemaker:CreateApp",
+    ]
+    effect = "Deny"
+    resources = [
+      "*"
+    ]
+    condition {
+      test     = "StringNotLike"
+      variable = "sagemaker:InstanceTypes"
+      values = [
+        "ml.t3.medium",
+        "system"
+      ]
+    }
   }
 
   statement {
