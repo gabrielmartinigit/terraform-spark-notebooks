@@ -41,7 +41,8 @@ data "aws_iam_policy_document" "sm_user_policy" {
   statement {
     actions = [
       "sagemaker:DescribeApp",
-      "sagemaker:DescribeImageVersion"
+      "sagemaker:DescribeImageVersion",
+      "sagemaker:CreateApp"
     ]
     effect = "Allow"
     resources = [
@@ -58,13 +59,24 @@ data "aws_iam_policy_document" "sm_user_policy" {
       "*"
     ]
     condition {
-      test     = "StringNotLike"
+      test     = "ForAnyValue:StringNotLike"
       variable = "sagemaker:InstanceTypes"
       values = [
         "ml.t3.medium",
+        "ml.c5.large",
         "system"
       ]
     }
+  }
+
+  statement {
+    actions = [
+      "sagemaker:DeleteApp"
+    ]
+    effect = "Allow"
+    resources = [
+      "*"
+    ]
   }
 
   statement {
